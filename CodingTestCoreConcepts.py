@@ -66,6 +66,44 @@ class CodingTestCoreConcepts:
         print(answer)
         return answer
 
+    #concept: BFS(Breadth First Search)
+    #Given a maze witd dimension N by M, find the shortest distance of the route
+    # from starting point (0,0) to exit point (N-1,M-1).
+    
+        #import sys
+        #from collections import deque
+        
+        #N,M = map(int, input().split())
+        #maze = [input() for i in range(N)]
+        
+    def BFS(N, M, maze):
+        
+        maze = list(map(lambda x: list(x), maze))
+        dist = [[-1]*M for i in range(N)] #방문여부 확인 하기 위해 -1로 초기화
+
+        #상하좌우
+        dx = [1,0,-1,0]
+        dy=[0,1,0,-1]
+
+        q = deque()
+        q.append((0,0))
+        dist[0][0] = 0
+        cnt = 0
+        while q:
+            cur = q.popleft() #(0,0)부터 시
+            for i in range(4):
+                nx = cur[0] + dx[i]
+                ny = cur[1] + dy[i]
+                if nx >= 0 and nx < N and ny >=0 and ny < M:
+                    if dist[nx][ny] < 0 and maze[nx][ny] == '1':
+                        dist[nx][ny] = dist[cur[0]][cur[i]]+1
+                        q.append((nx,ny))
+        cnt = dist[N-1][M-1] + 1
+        print(cnt)
+        return cnt
+        
+    
+
 s1 = CodingTestCoreConcepts()
 board=[[0,0,0,0,0],[0,0,1,0,3],[0,2,5,0,1],[4,2,4,4,2],[3,5,1,3,1]]
 moves=[1,5,3,5,1,2,1,4]
