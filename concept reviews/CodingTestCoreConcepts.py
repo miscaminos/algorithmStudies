@@ -144,8 +144,100 @@ class CodingTestCoreConcepts:
         print(answer)
         return answer
     
-s1 = CodingTestCoreConcepts()
-arr1=[48, 53, 33, 22, 31, 50]
-arr2=[27, 56, 19, 14, 14, 10]
-n=6
-s1.bit_computation_zip(n, arr1, arr2)
+#arr1=[48, 53, 33, 22, 31, 50]
+#arr2=[27, 56, 19, 14, 14, 10]
+#n=6
+#s1.bit_computation_zip(n, arr1, arr2)
+
+
+    #concept: Hash (the concept of hash is used as dictionary in python)
+    # Use key-value pairs in a dictionary to store, modify and retreive data about a chatroom
+    #problem: Given a set of user ID and nicknames and actions(enter, change, leave) in an array "record"
+    # find an array of log messages (in the same order as the given record) which announces
+    # the action and the nickname(the final nickname of the user after re-entering the chatroom or changing the nickname)
+    def find_chatlog(self, record):
+        answer = []
+        user_dict = {}
+        chatlog = []
+        enter_msg = "%s님이 들어왔습니다."
+        leave_msg = "%s님이 나갔습니다."
+        for rec in record:
+            info = rec.split(" ")
+            if info[0]=="Enter":
+                user_dict[info[1]]=info[2]
+                chatlog.append([enter_msg, info[1]])
+            elif info[0]=="Leave":
+                chatlog.append([leave_msg, info[1]])
+            elif info[0]=="Change":
+                user_dict[info[1]]=info[2]
+        for log in chatlog:
+            answer.append(log[0] % user_dict[log[1]])
+        print(answer)
+        return answer
+    
+#record = ["Enter uid1234 Muzi", "Enter uid4567 Prodo", "Leave uid1234", "Enter uid1234 Prodo", "Change uid4567 Ryan"]
+#s1.find_chatlog(record)
+
+    
+    def __init__(self):
+        self.x = 0
+        
+    #concept: (재귀함수) Recursion
+    # example1: factorial
+    def factorial(self,n):
+        if n==1:
+            return 1
+        else:
+            return n*factorial(n-1)
+        
+    # example2: recursion problem (Kakao coding test 2020)
+    # Follow the instructions to implement the logic described below:
+    def recursion_solution(self,p):
+        #1. 입력이 빈 문자열인 경우, 빈 문자열을 반환 한다.
+        if p =="":
+            return p
+        #2. 문자열 w를 두 "균형잡힌 괄호 문자열" u,v로 분리한다.
+        #   단, u는 "균형잡힌 괄호 문자열"로 더 이상 분리 할 수 없어야 하며 v는 빈 문자열이 될 수 있다
+        cnt, idx = 0, 0
+        for i in range(len(p)):
+            if p[i] == "(":
+                cnt +=1
+            else:
+                cnt-=1
+            if cnt ==0:
+                idx = i
+                break
+        u, v = p[ :idx+1], p[idx+1: ]
+        #3. 문자열 u가 "올바른 괄호 문자열"이라면 문자열 v에 대해 1단계부터 다시 수행한다.
+        #   3-1. 수행한 결과 문자열을 u에 이어 붙힌 후 반환한다.
+        if u[0] =="(":
+            return u + recursion_solution(v)
+        #4. 문자열 u가 "올바른 괄호 문자열"이 아니라면 아래 과정을 수행한다.
+        #   4-1. 빈 문자열에 첫번째 문자로 '('를 붙인다.
+        #   4-2. 문자열 v에 대해 1단계부터 재귀적으로 수행한 결과 문자열을 이어 붙인다.
+        #   4-3. ')'를 다시 붙인다.
+        #   4-4. u의 첫번째와 마지막 문자를 제거하고, 나머지 문자열의 괄호 방향을 뒤집어서 뒤에 붙인다.
+        #   4-5. 생성된 문자열을 반환한다. 
+        else:
+            new_u=""
+            u = u[1:-1]
+            for i in u:
+                if i == "(":
+                    new_u += ")"
+                else:
+                    new_u += "("
+            return "(" + recursion_solution(v) + ")" + new_u
+
+#s1 = CodingTestCoreConcepts()
+#s1.factorial(3)
+#p="()))((()"
+#s1.recursion_solution(p)
+        
+        
+        
+        
+        
+        
+    
+
+
