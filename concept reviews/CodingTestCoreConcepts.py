@@ -1,7 +1,8 @@
 class CodingTestCoreConcepts:
 
-    #Concept review and example problems from notion's (핵준특) 코딩테스트 핵심준비 특강
+#Concept review and example problems from notion's (핵준특) 코딩테스트 핵심준비 특강
 
+##############################################################################
     #concept: stack & queue
         #problem: Given a board of stacks, pop numbers from these stacks according to the
         #number of stack given by the moves array, and place the numbers in a bucket.
@@ -35,6 +36,7 @@ class CodingTestCoreConcepts:
 #s1.stack_and_queue(board, moves)
 
 
+##############################################################################
     #conept: 탐색(완전탐색, binary search)
         #problem: Given a string, shorten the string by collapsing the repeated substrings  by
         #replacing the repated substrings with "number of repetition" + "repeated substring"
@@ -74,6 +76,7 @@ class CodingTestCoreConcepts:
 #s1.binary_search(string)
 
 
+##############################################################################
     #concept: BFS(Breadth First Search)
         #Problem: Given a maze witd dimension N by M,
         # find the shortest distance of the route from starting point (0,0) to exit point (N-1,M-1).
@@ -106,6 +109,7 @@ class CodingTestCoreConcepts:
         return cnt
 
 
+##############################################################################
     #concept: Bitwise Computation
     # to convert n to binary(2진수) value: bin(n), to octal(8진수) value: oct(n), to hexadecimal(16진수) value: hex(n)
     # to convert n to decimal(10진수) value = int(n)
@@ -150,6 +154,7 @@ class CodingTestCoreConcepts:
 #s1.bit_computation_zip(n, arr1, arr2)
 
 
+##############################################################################
     #concept: Hash (the concept of hash is used as dictionary in python)
     # Use key-value pairs in a dictionary to store, modify and retreive data about a chatroom
     #problem: Given a set of user ID and nicknames and actions(enter, change, leave) in an array "record"
@@ -179,9 +184,7 @@ class CodingTestCoreConcepts:
 #s1.find_chatlog(record)
 
     
-    def __init__(self):
-        self.x = 0
-        
+##############################################################################        
     #concept: (재귀함수) Recursion
     # example1: factorial
     def factorial(self,n):
@@ -228,11 +231,18 @@ class CodingTestCoreConcepts:
                     new_u += "("
             return "(" + recursion_solution(v) + ")" + new_u
 
-#s1 = CodingTestCoreConcepts()
 #s1.factorial(3)
 #p="()))((()"
 #s1.recursion_solution(p)
-        
+
+
+##############################################################################
+        # concept: Dynamic programming (동적계획법)
+        # problem: 
+
+
+        # concept: Dijkstra(다익스트라) algorithm
+        # 
         
         
         
@@ -241,3 +251,4 @@ class CodingTestCoreConcepts:
     
 
 
+s1 = CodingTestCoreConcepts()
