@@ -231,24 +231,123 @@ class CodingTestCoreConcepts:
                     new_u += "("
             return "(" + recursion_solution(v) + ")" + new_u
 
+#s1 = CodingTestCoreConcepts()
 #s1.factorial(3)
 #p="()))((()"
 #s1.recursion_solution(p)
 
 
 ##############################################################################
-        # concept: Dynamic programming (동적계획법)
-        # problem: 
-
+        # concept: Floyd Warshall (플로이드 와샬) algorithm
+        # problem: Find the shortest route with lowest cost
+        # that passes through every node of given n nodes
+        def solution_fw(n, costs):
+            #비용 배열 values[]: all max values 2^31-1
+            #2^31-1 : maximum number of 32bit integer values above zero
+            #거리 배열 visited[]: all False
+            values = [2**31-1 for i in range(n)]
+            visited = [False for i in range(n)]
+            #0번 node를 시작점으로 설정
+            start = 0
+            visited[start] = True
+            values[start] = 0
+            #방문하지 않은 node가 있다면 (visited 배열에 False가 있는 동안 실행)
+            while False in visited:
+                #node 완전 탐색으로 비용배열의 거리 값 최소화
+                for i in costs:
+                    if(visited[i[1]]==False and i[0]==start):
+                        values[i[1]]=min(values[i[1]],i[2])
+                    if(visited[i[0]]==False and i[1]==start):
+                        values[i[0]]=min(values[i[0]],i[2])
+                refer = 2**31-1
+                #방문하지 않은 node중 최소 비용 node 위치 탐색
+                for i in range(n):
+                    if(visited[i] == False and values[i]!=0):
+                        refer = min(refer,values[i])
+                answer = answer + refer
+                #해당 node 방문 여부 check
+                for i in range(n):
+                    if(visited[i]==False and values[i]==refer):
+                        visited[i]=True
+                        #이동
+                        start=i
+                        break              
 
         # concept: Dijkstra(다익스트라) algorithm
-        # 
+        # problem: Find the shortest route from one particular node to another
+        def solution_d(n, costs):
+            #비용배열, 거리배열 선언
+            visited = [False for _ in range(n)]
+            cost = [sys.maxsize for _ in range(n)]
+            #0번 node를 시작점으로 설정한 case
+            visited[0] = True
+            cost[0] = 0
+            length = len(visited)
+            #방문하지 않은 node가 있는 동안:
+            while False in visited:
+                #방문하지 않은 지역 중, 최소값 찾기
+                checkLoc = -1
+                checkValue = sys.maxsize
+                #검사 할 후보를 하나씩 체크해서 가장 작은 cost의 node선택 (checkLoc에 대입)
+                for i in range(length):
+                    if visited[i] == False and cost[i] < checkValue:
+                        checkLoc = i
+                        checkValue = cost[i]
+                #검사 할 후보가 없다면 탈출
+                if checkLoc == -1:
+                    break
+                visited[checkLoc] = True
+                #경로 완전탐색으로 비용배열 수정
+                for v1, v2, c in costs:
+                    #다음 이동할 node의 cost비교시,
+                    #현재  node까지 오기위해 소모한  cost도 더해주어야한다
+                    if v1 == checkLoc and visited[v2] == False:
+                        cost[v2] = min(cost[v2], cost[v1]+c)
+                    if v2 == checkLoc and visited[v1] == False:
+                        cost[v1] = min(cost[v1], cost[v2]+c)
         
-        
-        
-        
-        
-    
+        # Dijkstra example problem
+        # Find the shortest route
+        import sys
+        import heapq
 
+        input = sys.stdin.readline
+        INF = sys.maxsize
 
-s1 = CodingTestCoreConcepts()
+        #input V: node 개수, E: 간선의 개수, K:시작 node 번호
+        V, E = map(int, input().split())
+        K = int(input())
+        #distance: 최단경로 값을 저장하는 list 
+        distance = [INF]*(V+1)
+        #graph: node들이 연결된 관계를 나타내는 list
+        graph = [[]for _ in range(V+1)]
+        #q: 우선순위 큐 (priority queue)
+        pq = []
+
+        for _ in range(E):
+            #u에서 v로 가는 간선의 가중치 w으로 입력받은 값들을 mapping해서 graph에 추가
+            u, v, w = map(int, input().split())
+            graph[u].append((w,v))
+
+        def solution(start):
+            distance[start]=0
+            heapq.heappush(pq, (0, start))
+            while pq:
+                #heap에 push된 가중치와 현재node번호를 가져와서
+                weight, current = heapq.heappush(pq)
+                #distance에서 현재 node의 가중치값이 더 작다면, continue
+                if distance[current] < weight:
+                    continue
+                #graph에서 보이는 현node의 기준으로, 다음 node의 가중치 값이
+                # (=현node까지의 가중치 + 다음 node 가중치)
+                #distance에 저장된 가중치값보다 더 작다면,
+                # 더 작은 가중치 값으로 distance의 값을 replace한 후, 다음 pq를 heap으로 push
+                for w, nextNode in graph[current]:
+                    if distance[nextNode] > weight + w:
+                        distance[nextNode] = weight + w
+                        heapq.heappush(pq, (weight+w, nextNode))
+                        
+        #check solution:
+        solution(K)
+        for i in range(1, V+1):
+            print("INF" if distance[i] == INF else distance[i])
