@@ -191,7 +191,7 @@ class CodingTestCoreConcepts:
         if n==1:
             return 1
         else:
-            return n*factorial(n-1)
+            return n*self.factorial(n-1)
         
     # example2: recursion problem (Kakao coding test 2020)
     # Follow the instructions to implement the logic described below:
@@ -214,7 +214,7 @@ class CodingTestCoreConcepts:
         #3. 문자열 u가 "올바른 괄호 문자열"이라면 문자열 v에 대해 1단계부터 다시 수행한다.
         #   3-1. 수행한 결과 문자열을 u에 이어 붙힌 후 반환한다.
         if u[0] =="(":
-            return u + recursion_solution(v)
+            return u + self.recursion_solution(v)
         #4. 문자열 u가 "올바른 괄호 문자열"이 아니라면 아래 과정을 수행한다.
         #   4-1. 빈 문자열에 첫번째 문자로 '('를 붙인다.
         #   4-2. 문자열 v에 대해 1단계부터 재귀적으로 수행한 결과 문자열을 이어 붙인다.
@@ -229,7 +229,7 @@ class CodingTestCoreConcepts:
                     new_u += ")"
                 else:
                     new_u += "("
-            return "(" + recursion_solution(v) + ")" + new_u
+            return "(" + self.recursion_solution(v) + ")" + new_u
 
 #s1 = CodingTestCoreConcepts()
 #s1.factorial(3)
@@ -264,7 +264,8 @@ class CodingTestCoreConcepts:
                 for i in range(n):
                     if(visited[i] == False and values[i]!=0):
                         refer = min(refer,values[i])
-                answer = answer + refer
+                answer=0
+                answer += refer
                 #해당 node 방문 여부 check
                 for i in range(n):
                     if(visited[i]==False and values[i]==refer):
