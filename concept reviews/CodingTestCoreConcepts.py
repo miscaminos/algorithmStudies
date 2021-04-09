@@ -385,3 +385,101 @@ class CodingTestCoreConcepts:
                     end_time = meeting[1]
                     cnt+=1
             return cnt
+
+
+########################################################################
+#concept: LinkedList & Trie structure
+#LinkedList 구현:
+#define Node:
+class Node():
+    def __init__(self,data):
+        self.data = data
+        self.next = None
+        
+#define LinkedList:
+class LinkedList():
+    def __init__(self):
+        self.head = None
+        self.count = 0
+
+    #LinkedList 맨앞에 node 추가:   
+    def appendHead(self, node):
+        if self.head == None:
+            self.head = node
+            self.count = 1
+        else:
+            self.count +=1
+            currentHead = self.head
+            self.head = node
+            node.next = currentHead
+
+    #LinkedList 맨뒤에 node 추가:
+    def append(self, node):
+        if self.node == None:
+            self.head = node
+            self.count = 1
+        else:
+            now = self.head
+            while now.next != None:
+                now = now.next
+            now.next = node
+            self.count += 1
+
+    #index위치에 node 추가:
+    def insertNodeAtIndex(self,node,index):
+        if index<0 or index>self.count:
+            return -1
+        elif self.count == index:
+            self.append(node)
+        elif index==0:
+            self.appendHead(node)
+        else:
+            now = self.head
+            while index>0:
+                index -=1
+                now = now.next
+            self.count -=1
+            nextNode = now.next
+            now.next = node
+            node.next = nextNode
+
+    #node 삭제:
+    def deleteData(self, data):
+        if self.head.data == data:
+            self.head = self.head.next
+            self.count-=1
+        else:
+            first = self.head
+            second = first.next
+            while second != None:
+                if second.data == data:
+                    first.next = second.next
+                    self.count-=1
+                    break
+                first = second
+                second = second.next
+
+    #연결리스트의 node 갯수 찾기:
+    def getCount(self):
+        return self.count
+
+#Trie 구조 구현:
+#define node:
+class Node():
+    def __init__(self,data):
+        self.data = data
+        self.children = {}
+        
+#define Trie structure:
+class Trie():
+    def __init__(self,data):
+        self.head = Node(None)
+        
+    #Trie에 data insert:
+    def insert(self, string):
+        head = self.head
+        for s in string:
+            children = head.children
+            if s not in children:
+                children[s] = Node(s)
+            head = children[s]
