@@ -483,3 +483,79 @@ class Trie():
             if s not in children:
                 children[s] = Node(s)
             head = children[s]
+
+#binary search (이진탐색)기반의 길찾기 문제
+#Given node의 x,y좌표(where every node has distinct x position)
+#Nodes in the same level get same y position
+#child node's y position is always smaller than the parent node's y position
+# 1:[5,3],2:[11,5],3:[13,3],4:[3,5],5:[6,1],6:[1,3],7:[8,6],8:[7,2],9:[2,2]
+# y position으로 level을 나누면: (from highest level 6 to lowest 1)
+#                               7 -> 2,4 -> 1,3,6 -> 8,9 -> 5
+# Preorder(전위순회) = DFS방식으로 트리 탐색 왼쪽먼저 전위, 그 다음 오른쪽 전위
+# 결과 리스트 = [7,4,6,9,1,8,5,2,3]
+# Postorder(후위순회) = 왼쪽 오른쪽 자식 노드부터 순서대로 탐색
+# 결과 리스트 = [9,6,4,8,1,4,3,2,7]
+
+# 해결 과정:
+# 1)각 노드에 순서를 매긴다
+# 2)노드에 고유한 level값을 찾는다 (y position)
+# 3)level순서대로 역순 정렬한다
+# level이 동일한 경우, x position이 작은 순서대로 정렬
+# 4)트리에 각 순서값을 삽입
+# 각 level에 대해 부모 노드의 x position보다 작으면 왼쪽 노드에 삽입,
+# 부모 노드의 x position보다 크면 오른쪽 노드에 삽입
+# 완성된 트리에 대해, 전위순회, 후위순회
+
+class TreeNode:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right= right
+
+def makeTree(nodes, levels, curLevel):
+    cur = nodes.pop(0)
+    root = TreeNode(cur[-1]) #마지막 element가 순서값
+
+    if nodes:
+        for i in range(len(nodes)):
+            if nodes[i][1] == levels[curLevel + 1]: #동일한 레벨이면,
+                #부모node의 x 값과 비교해서 더 작으면 왼쪽에 생성, 크면 오른쪽에 생성
+                if nodes[i][0] < cur[0]:
+                    root.left = makeTree([x for x in nodes if x[0] < cur[0]], levels, curLevel+1)
+                else:
+                    root.right = makeTree([x for x in nodes if x[0] > cur[0]], levels, curLevel+1)
+    return root
+
+preResult = []
+def preorder(node):
+    if node is None:
+        return
+    preorder(node.left)
+    preorder(node.right)
+    preResult.append(node.val)
+    
+    
+postResult = []
+def postorder(node):
+    if node is None:
+        return
+    postResult.append(node.val)
+    postorder(node.left)
+    postorder(node.right)
+    
+
+def solution(nodeinfo):
+    levels = sorted(list({x[1] for x in nodeinfo}), reverse=True)
+    nodeinfo = [i+[idx+1] for idx, i in enumerate(nodeinfo)]
+    #nodeinfo의 x[1]는 desc order로, x[0]는 asc order로 정렬하기위해 "-x[0]" 
+    nodeinfo = sorted(nodeinfo, key=lambda x:(x[1], -x[0]), reverse=True)
+
+    root = makeTree(nodeinfo, levels, 0)
+
+    preorder(root)
+    postorder(root)
+    return [postResult, preResult]
+    
+
+nodeinfo=[[5,3],[11,5],[13,3],[3,5],[6,1],[1,3],[8,6],[7,2],[2,2]]        
+print(solution(nodeinfo))
