@@ -2,7 +2,7 @@ package self.study.array;
 
 import java.util.Scanner;
 
-public class Array1Dimension006{
+public class Array2Dimension001{
 
 	/*
 	 * Problem 9:
@@ -78,7 +78,7 @@ public class Array1Dimension006{
 	
 	
 	public static void main(String[] args) {
-		Array1Dimension006 ss = new Array1Dimension006();
+		Array2Dimension001 ss = new Array2Dimension001();
 		Scanner in = new Scanner(System.in);
 	
 		int n = in.nextInt();
