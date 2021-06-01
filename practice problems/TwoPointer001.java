@@ -1,8 +1,8 @@
-package self.study.array;
+package self.study.twopointers;
 
 import java.util.*;
 
-public class CombineTwo{
+public class TwoPointer001{
 
 	/* Problem1:
 	 * 오름차순으로 정렬이 된 두 배열이 주어지면 두 배열을 오름차순으로 합쳐 출력하는 프로그램을 작성하세요.
@@ -28,7 +28,7 @@ public class CombineTwo{
 	}
 
 	public static void main(String[] args){
-		CombineTwo T = new CombineTwo();
+		TwoPointer001 T = new TwoPointer001();
 		Scanner kb = new Scanner(System.in);
 		int n=kb.nextInt();
 		int[] a=new int[n];
