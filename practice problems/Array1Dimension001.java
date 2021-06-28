@@ -1,4 +1,4 @@
-package self.study.array;
+﻿package self.study.array;
 
 public class Array1Dimension001{
 
@@ -12,7 +12,7 @@ public class Array1Dimension001{
 	 * 그 다음줄에 N명의 학생의 키가 앞에서부터 순서대로 주어진다.
 	 */
 	
-	//my solution: CORRECT
+	//solution:
 	public int solution(int n, int[] numbers) {
 		//맨 앞사람은 항상 보인다
 		int answer = 1;
