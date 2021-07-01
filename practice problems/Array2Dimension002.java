@@ -44,11 +44,12 @@ public class Array2Dimension002{
 				}
 			}
 		}
-		System.out.println("number of highpoints: " + answer);
+		//System.out.println("number of highpoints: " + answer);
 		return answer;
 	}
 	
 	//teacher's solution:
+	//no need to add border of 0's. just need to set boundary condition
 	int[] dx={-1, 0, 1, 0};
 	int[] dy={0, 1, 0, -1};
 	public int solution1(int n, int[][] arr){
@@ -81,10 +82,8 @@ public class Array2Dimension002{
 				map[k][h]=sc.nextInt();
 			}
 		}
-		
 //		int k=5;
 //		int[][]map= {{5,3,7,2,3},{3,7,1,6,1},{7,2,5,3,4},{4,3,6,4,1},{8,7,3,5,2}};
-		
 		System.out.println(md.solution1(k, map));
 		
 	}
