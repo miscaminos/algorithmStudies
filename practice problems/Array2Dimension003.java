@@ -21,12 +21,17 @@ public class ClassRepSelection {
 	//solution:
 	public int solution(int n, int[][] arr){
 		int answer=0, max=0;
+		//ith student (1~n)
 		for(int i=1; i<=n; i++){
 			int cnt=0;
+			//Compare with all other jth students (1~n). Notice each student include self.
+			//For the purpose of comparing counts, it's OK to include self.
 			for(int j=1; j<=n; j++){
 				for(int k=1; k<=5; k++){
 					if(arr[i][k]==arr[j][k]){
 						cnt++;
+						//for jth student to be counted once only, 
+						//need to break after counting jth student once
 						break;
 					}
 				}
