@@ -79,7 +79,7 @@ public class Array2Dimension002{
 
 		for(int g=0; g<k; g++) {
 			for(int h=0; h<k; h++) {
-				map[k][h]=sc.nextInt();
+				map[g][h]=sc.nextInt();
 			}
 		}
 //		int k=5;
