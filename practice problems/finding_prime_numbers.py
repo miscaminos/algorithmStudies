@@ -43,8 +43,10 @@ ptr+=1
 prime[ptr]=3
 ptr+=1
 
+# number n is prime number when it cannot be divided by any prime number smaller than sqrt of n
 for n in range(5,1001,2):
     i=1
+    # much faster to use power of 2(via multiplication) instead of square root
     while prime[i]*prime[i] <=n:
         counter +=2
         if n%prime[i]==0:
@@ -57,4 +59,4 @@ for n in range(5,1001,2):
 
 for i in range(ptr):
     print(prime[i])
-print("number of divisions executed: ",counter)
+print("number of divisions&multiplications executed: ",counter)
